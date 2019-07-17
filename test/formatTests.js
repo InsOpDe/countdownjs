@@ -105,7 +105,7 @@ test('1 day, reversed', function() {
 	end.setDate( end.getDate()+1 );
 	var input = countdown(end, start, countdown.ALL);
 
-	var expected = '1 day';
+	var expected = '1 day, 0 hours, 0 minutes, 0 seconds and 0 milliseconds';
 
 	var actual = input.toString();
 
@@ -120,7 +120,7 @@ test('15 days', function() {
 
 	var input = countdown(end, start, countdown.ALL);
 
-	var expected = '2 weeks and 1 day';
+	var expected = '2 weeks, 1 day, 0 hours, 0 minutes, 0 seconds and 0 milliseconds';
 
 	var actual = input.toString();
 
@@ -135,7 +135,7 @@ test('32 days', function() {
 
 	var input = countdown(end, start, countdown.ALL);
 
-	var expected = '1 month and 1 day';
+	var expected = '1 month, 0 weeks, 1 day, 0 hours, 0 minutes, 0 seconds and 0 milliseconds';
 
 	var actual = input.toString();
 
@@ -153,7 +153,7 @@ test('Millennium, week', function() {
 
 	var input = countdown(start, end, countdown.ALL);
 
-	var expected = '1 millennium and 1 week';
+	var expected = '1 millennium, 0 centuries, 0 decades, 0 years, 0 months, 1 week, 0 days, 0 hours, 0 minutes, 0 seconds and 0 milliseconds';
 
 	var actual = input.toString();
 
@@ -178,7 +178,7 @@ test('One of each', function() {
 
 	var input = countdown(start, end, countdown.ALL);
 
-	var expected = '1 millennium, 1 century, 1 year, 1 month, 1 week, 1 day, 1 hour, 1 minute, 1 second and 1 millisecond';
+	var expected = '1 millennium, 1 century, 0 decades, 1 year, 1 month, 1 week, 1 day, 1 hour, 1 minute, 1 second and 1 millisecond';
 
 	var actual = input.toString();
 
@@ -203,7 +203,7 @@ test('Two of each', function() {
 
 	var input = countdown(start, end, countdown.ALL);
 
-	var expected = '2 millennia, 2 centuries, 2 years, 2 months, 2 weeks, 2 days, 2 hours, 2 minutes, 2 seconds and 2 milliseconds';
+	var expected = '2 millennia, 2 centuries, 0 decades, 2 years, 2 months, 2 weeks, 2 days, 2 hours, 2 minutes, 2 seconds and 2 milliseconds';
 
 	var actual = input.toString();
 
@@ -241,7 +241,25 @@ test('Millennium, week; 2 max', function() {
 
 	var input = countdown(start, end, countdown.ALL, 2);
 
-	var expected = '1 millennium and 1 week';
+	var expected = '1 millennium and 0 centuries';
+
+	var actual = input.toString();
+
+	same(actual, expected, '');
+});
+
+test('Week, hour; 2 max', function() {
+
+	var start = new Date(0);
+	var end = new Date(7 * 24 * 60 * 60 * 1000 + 11 * 60 * 60 * 1000);
+
+	// account for local timezone
+	start.setMinutes(start.getMinutes() + start.getTimezoneOffset());
+	end.setMinutes(end.getMinutes() + end.getTimezoneOffset());
+
+	var input = countdown(start, end, countdown.ALL, 2);
+
+	var expected = '1 week and 0 days';
 
 	var actual = input.toString();
 
@@ -266,7 +284,7 @@ test('One of each; 3 max', function() {
 
 	var input = countdown(start, end, countdown.ALL, 3);
 
-	var expected = '1 millennium, 1 century and 1 year';
+	var expected = '1 millennium, 1 century and 0 decades';
 
 	var actual = input.toString();
 
@@ -291,7 +309,7 @@ test('One of each; zero max', function() {
 
 	var input = countdown(start, end, countdown.ALL, 0);
 
-	var expected = '1 millennium, 1 century, 1 year, 1 month, 1 week, 1 day, 1 hour, 1 minute, 1 second and 1 millisecond';
+	var expected = '1 millennium, 1 century, 0 decades, 1 year, 1 month, 1 week, 1 day, 1 hour, 1 minute, 1 second and 1 millisecond';
 
 	var actual = input.toString();
 
@@ -316,7 +334,7 @@ test('One of each; -2 max', function() {
 
 	var input = countdown(start, end, countdown.ALL, -2);
 
-	var expected = '1 millennium, 1 century, 1 year, 1 month, 1 week, 1 day, 1 hour, 1 minute, 1 second and 1 millisecond';
+	var expected = '1 millennium, 1 century, 0 decades, 1 year, 1 month, 1 week, 1 day, 1 hour, 1 minute, 1 second and 1 millisecond';
 
 	var actual = input.toString();
 
@@ -338,7 +356,7 @@ test('Almost 2 minutes, rounded 2 digits', function() {
 
 	var input = countdown(new Date(915220800000), new Date(915220919999), countdown.DEFAULTS, 0, 2);
 
-	var expected = "2 minutes";
+	var expected = "2 minutes and 0 seconds";
 
 	var actual = input.toString();
 
@@ -439,7 +457,7 @@ test('2 days, reversed', function() {
 
 	var input = countdown(start, end, countdown.ALL);
 
-	var expected = '<span>2 days</span>';
+	var expected = '<span>2 days</span>, <span>0 hours</span>, <span>0 minutes</span>, <span>0 seconds</span> and <span>0 milliseconds</span>';
 
 	var actual = input.toHTML();
 
@@ -457,7 +475,7 @@ test('8 days', function() {
 
 	var input = countdown(start, end, countdown.ALL);
 
-	var expected = '<span>1 week</span> and <span>1 day</span>';
+	var expected = '<span>1 week</span>, <span>1 day</span>, <span>0 hours</span>, <span>0 minutes</span>, <span>0 seconds</span> and <span>0 milliseconds</span>';
 
 	var actual = input.toHTML();
 
@@ -475,7 +493,7 @@ test('70 days', function() {
 
 	var input = countdown(start, end, countdown.ALL);
 
-	var expected = '<span>2 months</span>, <span>1 week</span> and <span>4 days</span>';
+	var expected = '<span>2 months</span>, <span>1 week</span>, <span>4 days</span>, <span>0 hours</span>, <span>0 minutes</span>, <span>0 seconds</span> and <span>0 milliseconds</span>';
 
 	var actual = input.toHTML();
 
@@ -493,7 +511,7 @@ test('366 days, non-leap year', function() {
 
 	var input = countdown(start, end, countdown.ALL);
 
-	var expected = '<span>1 year</span> and <span>1 day</span>';
+	var expected = '<span>1 year</span>, <span>0 months</span>, <span>0 weeks</span>, <span>1 day</span>, <span>0 hours</span>, <span>0 minutes</span>, <span>0 seconds</span> and <span>0 milliseconds</span>';
 
 	var actual = input.toHTML();
 
@@ -511,7 +529,7 @@ test('366 days, leap year', function() {
 
 	var input = countdown(start, end, countdown.ALL);
 
-	var expected = '<span>1 year</span>';
+	var expected = '<span>1 year</span>, <span>0 months</span>, <span>0 weeks</span>, <span>0 days</span>, <span>0 hours</span>, <span>0 minutes</span>, <span>0 seconds</span> and <span>0 milliseconds</span>';
 
 	var actual = input.toHTML();
 
@@ -539,6 +557,7 @@ test('One of each', function() {
 	var expected =
 		'<em>1 millennium</em>, ' +
 		'<em>1 century</em>, ' +
+		'<em>0 decades</em>, ' +
 		'<em>1 year</em>, ' +
 		'<em>1 month</em>, ' +
 		'<em>1 week</em>, ' +
@@ -576,6 +595,7 @@ test('Singular overrides', function() {
 	var expected =
 		'<em>1 k</em>, ' +
 		'<em>1 j</em>, ' +
+		'<em>0 decades</em>, ' +
 		'<em>1 h</em>, ' +
 		'<em>1 g</em>, ' +
 		'<em>1 f</em>, ' +
@@ -594,6 +614,7 @@ test('Singular overrides', function() {
 	expected =
 		'<em>1 millennium</em>, ' +
 		'<em>1 century</em>, ' +
+		'<em>0 decades</em>, ' +
 		'<em>1 year</em>, ' +
 		'<em>1 month</em>, ' +
 		'<em>1 week</em>, ' +
@@ -631,6 +652,7 @@ test('Plural overrides', function() {
 	var expected =
 		'<em>2 K</em> &amp; ' +
 		'<em>2 J</em> &amp; ' +
+		'<em>0 I</em> &amp; ' +
 		'<em>2 H</em> &amp; ' +
 		'<em>2 G</em> &amp; ' +
 		'<em>2 F</em> &amp; ' +
@@ -649,6 +671,7 @@ test('Plural overrides', function() {
 	expected =
 		'<em>2 millennia</em>, ' +
 		'<em>2 centuries</em>, ' +
+		'<em>0 decades</em>, ' +
 		'<em>2 years</em>, ' +
 		'<em>2 months</em>, ' +
 		'<em>2 weeks</em>, ' +
@@ -691,6 +714,7 @@ test('Partial singular overrides', function() {
 	var expected =
 		'<em>1 k</em> + ' +
 		'<em>1 century</em> + ' +
+		'<em>0 decades</em> + ' +
 		'<em>1 year</em> + ' +
 		'<em>1 g</em> + ' +
 		'<em>1 week</em> + ' +
@@ -709,6 +733,7 @@ test('Partial singular overrides', function() {
 	expected =
 		'<em>1 millennium</em>, ' +
 		'<em>1 century</em>, ' +
+		'<em>0 decades</em>, ' +
 		'<em>1 year</em>, ' +
 		'<em>1 month</em>, ' +
 		'<em>1 week</em>, ' +
@@ -750,6 +775,7 @@ test('Partial plural overrides', function() {
 	var expected =
 		'<em>2 millennia</em>, ' +
 		'<em>2 J</em>, ' +
+		'<em>0 decades</em>, ' +
 		'<em>2 H</em>, ' +
 		'<em>2 months</em>, ' +
 		'<em>2 F</em>, ' +
@@ -768,6 +794,7 @@ test('Partial plural overrides', function() {
 	expected =
 		'<em>2 millennia</em>, ' +
 		'<em>2 centuries</em>, ' +
+		'<em>0 decades</em>, ' +
 		'<em>2 years</em>, ' +
 		'<em>2 months</em>, ' +
 		'<em>2 weeks</em>, ' +
@@ -828,9 +855,11 @@ test('Custom number formatter', function() {
 	var expected =
 		'<em>eight millennia</em>, ' +
 		'<em>seven centuries</em>, ' +
+		'<em>zero decades</em>, ' +
 		'<em>two years</em>, ' +
 		'<em>six months</em>, ' +
 		'<em>one week</em>, ' +
+		'<em>zero days</em>, ' +
 		'<em>four hours</em>, ' +
 		'<em>threeone minutes</em>, ' +
 		'<em>fivefive seconds</em> and ' +
@@ -845,9 +874,11 @@ test('Custom number formatter', function() {
 	expected =
 		'<em>8 millennia</em>, ' +
 		'<em>7 centuries</em>, ' +
+		'<em>0 decades</em>, ' +
 		'<em>2 years</em>, ' +
 		'<em>6 months</em>, ' +
 		'<em>1 week</em>, ' +
+		'<em>0 days</em>, ' +
 		'<em>4 hours</em>, ' +
 		'<em>31 minutes</em>, ' +
 		'<em>55 seconds</em> and ' +
@@ -904,9 +935,11 @@ test('Custom unit formatter', function() {
 	var expected =
 		'<em>8 тысячелетий</em>, ' +
 		'<em>7 столетий</em>, ' +
+		'<em>0 декад</em>, ' +
 		'<em>2 года</em>, ' +
 		'<em>6 месяцев</em>, ' +
 		'<em>1 неделя</em>, ' +
+		'<em>0 дней</em>, ' +
 		'<em>4 часа</em>, ' +
 		'<em>13 минут</em>, ' +
 		'<em>55 секунд</em> и ' +
@@ -921,9 +954,11 @@ test('Custom unit formatter', function() {
 	expected =
 		'<em>8 millennia</em>, ' +
 		'<em>7 centuries</em>, ' +
+		'<em>0 decades</em>, ' +
 		'<em>2 years</em>, ' +
 		'<em>6 months</em>, ' +
 		'<em>1 week</em>, ' +
+		'<em>0 days</em>, ' +
 		'<em>4 hours</em>, ' +
 		'<em>13 minutes</em>, ' +
 		'<em>55 seconds</em> and ' +

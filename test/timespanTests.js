@@ -2,7 +2,7 @@ try{
 
 /**
  * Mocks up a Timespan object for unit tests
- * 
+ *
  * @private
  * @param {Timespan|Object} map properties to convert to a Timespan
  * @return {Timespan}
@@ -181,9 +181,9 @@ test('Constant 1 month span, daily over 5 years', function() {
 			expected.start = start;
 			expected.end = end;
 			expected.value = end.getTime() - start.getTime();
-	
+
 			var actual = countdown(start, end, countdown.ALL);
-	
+
 			same(actual, expected, '');
 		}
 
@@ -453,7 +453,7 @@ test('Daylight Savings Time ('+formatTZ(1318451880000)+')', function() {
 test('Reference month ordering', function() {
 
 	var start = new Date(2015, 1, 1, 0, 0, 0);
-	var end = new Date(2014, 9, 27, 12, 00, 0);
+	var end = new Date(2014, 9, 27, 12, 0, 0);
 
 	var expected = countdown.mock({
 		start: new Date(start.getTime()),
