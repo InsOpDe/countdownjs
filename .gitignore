@@ -9,6 +9,7 @@
 *\.psd
 *\.ai
 *\.sh
+.idea
 ga.js
 robots.txt
 antixss\.js
